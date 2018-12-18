@@ -16,7 +16,7 @@ app.use(express.static('./public'));
 
 function proxyTicketMaster(req, res) {
   (requestProxy({
-    url: `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${process.env.TICKETM_KEY}`,
+    url: `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${process.env.TM_API_KEY}`,
   }))(req, res);
 }
 
@@ -24,7 +24,7 @@ function proxyGoogleMapsGeo(req, res) {
   (requestProxy({
     url: 'https://maps.googleapis.com/maps/api/geocode/json',
     query: {
-      key: process.env.GOOGLEMAP_KEY,
+      key: process.env.GOOGLE_MAPS_API_KEY,
       address: req.params.city
     }
   }))(req, res);
@@ -33,7 +33,7 @@ function proxyGoogleMapsGeo(req, res) {
 // ROUTES //
 
 app.get('/googlemaps/src',function(req, res) {
-  res.redirect(`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLEMAP_KEY}&v=3.exp&libraries=visualization`)
+  res.redirect(`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}&v=3.exp&libraries=visualization`)
 });
 
 app.get('/googlemaps/geo/:city', proxyGoogleMapsGeo);
